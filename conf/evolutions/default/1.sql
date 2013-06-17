@@ -37,6 +37,11 @@ create table location (
 create table note (
   id                        bigint not null,
   text                      varchar(255),
+  x                         varchar(255),
+  y                         varchar(255),
+  z                         varchar(255),
+  viewable                  varchar(255),
+  editable                  boolean,
   user_email                varchar(255),
   constraint pk_note primary key (id))
 ;

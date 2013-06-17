@@ -46,9 +46,9 @@ public class Application extends Controller {
 				
 		// Create notes.
 		
-		Note note1 = new Note("Notiz Eins", user);
-		Note note2 = new Note("Notiz Zwei", user);
-		Note note3 = new Note("Notiz Drei", user);
+		Note note1 = new Note("Notiz Eins", "4", "5", "6", "private", "true", user);
+		Note note2 = new Note("Notiz Zwei", "2", "3", "6", "public", "true", user);
+		Note note3 = new Note("Notiz Drei", "1", "5", "7", "protected", "false", user);
 		Note.create(note1);
 		Note.create(note2);
 		Note.create(note3);

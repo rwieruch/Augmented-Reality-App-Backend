@@ -22,9 +22,6 @@ public class User extends Model {
 	
     @JsonIgnore
     public String password;
-    
-    // For later use: convert password and email with bas64 to a unique token with timestamp.
-    //public String token;
 	
 	// UserEntity
     public String name;

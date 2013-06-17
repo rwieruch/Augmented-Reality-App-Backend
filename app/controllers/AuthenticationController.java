@@ -39,8 +39,7 @@ public class AuthenticationController extends Controller {
     				Session session = new Session(email, password, authUser);
     				Session.create(session);
     				
-	    			//return ok(Json.toJson(session));
-                    return ok(new JSONSerializer().exclude("notes", "password", "class", "notes.class").serialize(session));
+                    return ok(new JSONSerializer().include("user.notes").exclude("id", "timestamp", "user.password", "class", "user.notes.class", "user.class").serialize(session));
     			} else {
     				return badRequest("Wrong email/password.");
     			}
