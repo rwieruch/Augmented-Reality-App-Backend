@@ -13,6 +13,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import play.db.ebean.Model;
 
 @Entity
+@Table(name="augmenteduser")
 public class User extends Model {
 	
 	@Id
