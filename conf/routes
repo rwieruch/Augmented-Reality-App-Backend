@@ -1,0 +1,54 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index()
+GET     /init.json                  controllers.Application.initializeDB()
+
+# Authentication
+POST     /login.json                controllers.AuthenticationController.login()
+POST     /logout.json               controllers.AuthenticationController.logout()
+
+# Users
+POST    /register.json              controllers.UserController.register()
+GET     /authuser.json              controllers.UserController.getAuthUser()
+PUT     /users/update.json          controllers.UserController.updateJson()
+
+# Notes          
+GET 	/notes.json   		        controllers.NotesController.indexJson() 
+GET 	/notes/:id.json   		    controllers.NotesController.getJson(id: Long) 
+PUT 	/notes/:id.json   		    controllers.NotesController.updateJson(id: Long) 
+POST    /notes.json                 controllers.NotesController.createJson()
+DELETE  /notes/:id.json   	    	controllers.NotesController.destroyJson(id: Long)
+
+#Locations
+GET     /locations.json             controllers.LocationsController.indexJson()
+GET     /locations/:id.json         controllers.LocationsController.getJson(id: Long)
+PUT     /locations/:id.json         controllers.LocationsController.updateJson(id: Long)
+POST    /locations.json             controllers.LocationsController.createJson()
+DELETE  /locations/:id.json         controllers.LocationsController.destroyJson(id: Long)
+
+#AccessPoints
+GET     /accesspoints.json          controllers.AccessPointsController.indexJson()
+GET     /accesspoints/:id.json      controllers.AccessPointsController.getJson(id: Long)
+PUT     /accesspoints/:id.json      controllers.AccessPointsController.updateJson(id: Long)
+POST    /accesspoints.json          controllers.AccessPointsController.createJson()
+DELETE  /accesspoints/:id.json      controllers.AccessPointsController.destroyJson(id: Long)
+
+#Fingerprints
+GET     /fingerprints.json          controllers.FingerprintController.indexJson()
+GET     /fingerprints/:id.json      controllers.FingerprintController.getJson(id: Long)
+PUT     /fingerprints/:id.json      controllers.FingerprintController.updateJson(id: Long)
+POST    /fingerprints.json          controllers.FingerprintController.createJson()
+DELETE  /fingerprints/:id.json      controllers.FingerprintController.destroyJson(id: Long)
+
+#Rooms
+GET     /rooms.json          controllers.RoomsController.indexJson()
+GET     /rooms/:id.json      controllers.RoomsController.getJson(id: Long)
+PUT     /rooms/:id.json      controllers.RoomsController.updateJson(id: Long)
+POST    /rooms.json          controllers.RoomsController.createJson()
+DELETE  /rooms/:id.json      controllers.RoomsController.destroyJson(id: Long)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

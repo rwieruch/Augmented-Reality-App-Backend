@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/kpeus13/!svn/ver/178/trunk/Implementierung/Backend/app/models
+END
+Fingerprint.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/kpeus13/!svn/ver/173/trunk/Implementierung/Backend/app/models/Fingerprint.java
+END
+Location.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/kpeus13/!svn/ver/147/trunk/Implementierung/Backend/app/models/Location.java
+END
+APFingerprint.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/kpeus13/!svn/ver/173/trunk/Implementierung/Backend/app/models/APFingerprint.java
+END
+AccessPoint.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/kpeus13/!svn/ver/151/trunk/Implementierung/Backend/app/models/AccessPoint.java
+END
+Room.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/kpeus13/!svn/ver/160/trunk/Implementierung/Backend/app/models/Room.java
+END
+User.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/kpeus13/!svn/ver/143/trunk/Implementierung/Backend/app/models/User.java
+END
+Session.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/kpeus13/!svn/ver/178/trunk/Implementierung/Backend/app/models/Session.java
+END
+Note.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/kpeus13/!svn/ver/174/trunk/Implementierung/Backend/app/models/Note.java
+END
