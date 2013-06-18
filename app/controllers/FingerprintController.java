@@ -2,14 +2,17 @@
  * FingerprintController.
  *
  *@desc
- * 	{"x": Integer, "y": Integer, "macAdress": String, "intensity": Integer}.
+ * 	{"x": int, "y":int, "AccessPoints": [{"macAdress": "String", "intensity": int},{"macAdress": "String", "intensity": int},...] }
  *
  * @author: Jan Schmalfuß
  */
 package controllers;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
 import models.Fingerprint;
+import models.APFingerprint;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -33,17 +36,21 @@ public class FingerprintController extends Controller {
 		if (json == null) {
 			return badRequest("Expecting Json data");
 		} else {
-			Integer x = json.findPath("x").getIntValue();
-			Integer y = json.findPath("y").getIntValue();
-			String macAddress = json.findPath("macAddress").getTextValue();
-			Integer intensity = json.findPath("intensity").getIntValue();
-			if (x == null || y == null || macAddress == null
-					|| intensity == null) {
+			Double x = json.findPath("x").getDoubleValue();
+			Double y = json.findPath("y").getDoubleValue();
+			Iterator<JsonNode> it = json.findPath("AccessPoints").getElements();
+			if (x == null || y == null || it == null) { //ToDo
 				return badRequest("Missing parameter!");
 			} else {
-				Fingerprint fingerprint = new Fingerprint(x, y, macAddress,
-						intensity);
+				Fingerprint fingerprint = new Fingerprint(x, y);
+					while(it.hasNext()) {
+						JsonNode j = it.next();
+						String macAdress = j.findPath("macAddress").getTextValue();
+						int intensity = j.findPath("intensity").getIntValue();
+						fingerprint.accesspoints.add(new APFingerprint(macAdress,intensity));
+					}				
 				Fingerprint.create(fingerprint);
+				
 				return ok("Added " + fingerprint.id);
 			}
 		}
@@ -69,17 +76,24 @@ public class FingerprintController extends Controller {
 		if (json == null) {
 			return badRequest("Expecting Json data");
 		} else {
-			Integer x = json.findPath("x").getIntValue();
-			Integer y = json.findPath("y").getIntValue();
-			String macAddress = json.findPath("macAddress").getTextValue();
-			Integer intensity = json.findPath("intensity").getIntValue();
-			if (x == null || y == null || macAddress == null
-					|| intensity == null) {
+			Double x = json.findPath("x").getDoubleValue();
+			Double y = json.findPath("y").getDoubleValue();
+			Iterator<JsonNode> it = json.findPath("AccessPoints").getElements();
+			
+			List<APFingerprint> aps = new ArrayList<APFingerprint>();
+			while(it.hasNext()) {
+				JsonNode j = it.next();
+				String macAdress = j.findPath("macAddress").getTextValue();
+				int intensity = j.findPath("intensity").getIntValue();
+				aps.add(new APFingerprint(macAdress,intensity));
+			}			
+			
+			if (x == null || y == null || it == null) {
 				return badRequest("Missing parameter!");
 			} else {
 				Fingerprint fingerprint = Fingerprint.get(id);
 				Fingerprint updatedFingerprint = Fingerprint.update(
-						fingerprint, x, y, macAddress, intensity);
+						fingerprint, x, y, aps);
 				return ok(Json.toJson(updatedFingerprint));
 			}
 		}

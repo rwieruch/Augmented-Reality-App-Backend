@@ -37,7 +37,7 @@ public class NotesController extends Controller {
         if(session == null) {
         	return unauthorized("Unauthorized");
         } else { 	
-        	return ok(new JSONSerializer().exclude("class", "user").serialize(Note.all()));
+        	return ok(new JSONSerializer().exclude("class", "user.class", "user.password").serialize(Note.all()));
         }
 	}
     
@@ -58,17 +58,18 @@ public class NotesController extends Controller {
 	        	User authUser = Session.getAuthUser(token);
 	        	
 	    		String text = json.findPath("text").getTextValue();
-	    		if(text == null) {
-	    			return badRequest("Missing parameter!");
+                String viewable = json.findPath("viewable").getTextValue();
+                String editable = json.findPath("editable").getTextValue();
+                String x = json.findPath("x").getTextValue();
+                String y = json.findPath("y").getTextValue();
+                String z = json.findPath("z").getTextValue();
+	    		if(text == null | viewable == null | editable == null | x == null | y == null | z == null) {
+	    			return badRequest("Missing parameter - Text: " + text + " Viewable: "  + viewable + " Editable: " + editable + " X: " + x + " Y: " + y + " Z: " + z);
 	    		} else {
-	    			Note note = new Note(text, authUser);
+	    			Note note = new Note(text, x, y, z, viewable, editable, authUser);
 	    			Note.create(note);
 	    			
-	    			JSONSerializer noteSerializer = new JSONSerializer().include(
-	    	                "id",
-	    					"text",
-	    	                "user.email",
-	    	                "user.name").exclude("*");
+	    			JSONSerializer noteSerializer = new JSONSerializer().exclude("class", "user.class", "user.password");
 
 	    			return ok(noteSerializer.serialize(note));
 	    		}
@@ -98,7 +99,7 @@ public class NotesController extends Controller {
                             "text",
                             "user.email",
                             "user.name").exclude("*");
-            System.out.println("GET3");
+           
             return ok(noteSerializer.serialize(note));
         }
     }
@@ -117,11 +118,13 @@ public class NotesController extends Controller {
                 return unauthorized("Unauthorized");
             } else {    
                 String text = json.findPath("text").getTextValue();
-                if(text == null) {
+                String viewable = json.findPath("viewable").getTextValue();
+                String editable = json.findPath("editable").getTextValue();
+                if(text == null | viewable == null | editable == null) {
                     return badRequest("Missing parameter!");
                 } else {
                     Note note = Note.get(id);
-                    Note updatedNote = Note.update(note, text);
+                    Note updatedNote = Note.update(note, text, viewable, editable);
                     
                     JSONSerializer noteSerializer = new JSONSerializer().include(
                             "id",

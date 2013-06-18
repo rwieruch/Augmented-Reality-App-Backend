@@ -6,7 +6,7 @@
 create table apfingerprint (
   id                        bigint not null,
   fingerprint_id            bigint not null,
-  mac_adress                varchar(255),
+  mac_address               varchar(255),
   intensity                 integer,
   constraint pk_apfingerprint primary key (id))
 ;
@@ -20,8 +20,8 @@ create table access_point (
 
 create table fingerprint (
   id                        bigint not null,
-  x                         integer,
-  y                         integer,
+  x                         double,
+  y                         double,
   constraint pk_fingerprint primary key (id))
 ;
 
@@ -48,10 +48,10 @@ create table note (
 
 create table room (
   id                        bigint not null,
-  x                         integer,
-  y                         integer,
-  width                     integer,
-  height                    integer,
+  x                         double,
+  y                         double,
+  width                     double,
+  height                    double,
   name                      varchar(255),
   constraint pk_room primary key (id))
 ;

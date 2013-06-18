@@ -62,17 +62,23 @@ public class NotesApiTest extends BaseModelTest {
 		// Extract token.
 		token = contentAsString(loginResult);
 		String[] result = token.split(":");
-		result = result[2].split(",");
+		result = result[1].split(",");
 		token = result[0].substring(1, result[0].length() - 1);
-        System.out.println("###NotesApiTest: Extracted token: " + token);
+		System.out.println("###NotesApiTest: Extracted token: " + token);
 		
 		// Create first note.
 		
-		noteOne = new Note("note one", null);	
+		noteOne = new Note("note one", "5", "6", "7", "public", "true", null);	
 			
 		Map map1 = new HashMap();
 		map1.put("text", noteOne.text);
+		map1.put("x", noteOne.x);
+		map1.put("y", noteOne.y);
+		map1.put("z", noteOne.z);
+		map1.put("viewable", noteOne.viewable);
+		map1.put("editable","true");
 		JsonNode node1 = Json.toJson(map1);
+		System.out.println(node1);
 		Result result1 = routeAndCall(fakeRequest("POST","/notes.json")
 				  .withJsonBody(node1)
 				  .withHeader("token", token));
@@ -87,10 +93,15 @@ public class NotesApiTest extends BaseModelTest {
 		
 		// Create second note.
 		
-		noteTwo = new Note("note two", null);	
+		noteTwo = new Note("note two", "5", "6", "7", "public", "true", null);	
 			
 		Map map2 = new HashMap();
 		map2.put("text", noteTwo.text);
+		map2.put("x", noteTwo.x);
+		map2.put("y", noteTwo.y);
+		map2.put("z", noteTwo.z);
+		map2.put("viewable", noteTwo.viewable);
+		map2.put("editable", "true");
 		JsonNode node2 = Json.toJson(map2);
 		Result result2 = routeAndCall(fakeRequest("POST","/notes.json")
 				  .withJsonBody(node2)
@@ -106,10 +117,15 @@ public class NotesApiTest extends BaseModelTest {
 		
 		// Create third note.
 		
-		noteThree = new Note("note three", null);	
+		noteThree = new Note("note three", "5", "6", "7", "public", "true", null);	
 			
 		Map map3 = new HashMap();
 		map3.put("text", noteThree.text);
+		map3.put("x", noteThree.x);
+		map3.put("y", noteThree.y);
+		map3.put("z", noteThree.z);
+		map3.put("viewable", noteThree.viewable);
+		map3.put("editable", "true");
 		JsonNode node3 = Json.toJson(map3);
 		Result result3 = routeAndCall(fakeRequest("POST","/notes.json")
 				  .withJsonBody(node3)
@@ -220,7 +236,7 @@ public class NotesApiTest extends BaseModelTest {
 	  
 	  // Update.
 	  
-	  /*noteTwo.text = "note updated";
+	 /* noteTwo.text = "note updated";
 	  
 	  Map map2 = new HashMap();
 	  map2.put("text", noteTwo.text);
@@ -238,7 +254,7 @@ public class NotesApiTest extends BaseModelTest {
 	  assertThat(contentAsString(result)).contains("2").contains(noteTwo.text).contains(email).contains(name); // values
 	  containsPW(result); // in BaseModelTest, check for notContains: password:value*/
 	  
-	  // Delete.
+	 // Delete.
 	  
       Result result3 = routeAndCall(fakeRequest("DELETE","/notes/3.json")
 			  .withHeader("token", token));

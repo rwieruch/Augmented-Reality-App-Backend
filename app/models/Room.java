@@ -20,16 +20,16 @@ public class Room extends Model {
 	public Long id;
 	
 	@Required
-	public int x;
-	public int y;
-	public int width;
-	public int height;
+	public double x;
+	public double y;
+	public double width;
+	public double height;
 	public String name;
 
 	/**
 	 * Constructor.
 	 */
-	public Room(int x, int y, int width, int height, String name) {
+	public Room(double x, double y, double width, double height, String name) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -70,7 +70,7 @@ public class Room extends Model {
 	/**
 	 * Update. @return updated Room
 	 */
-	public static Room update(Room room, int x, int y, int width, int height, String name) {
+	public static Room update(Room room, double x, double y, double width, double height, String name) {
 		room.x = x;
 		room.y = y;
 		room.width = width;

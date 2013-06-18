@@ -21,14 +21,14 @@ public class APFingerprint extends Model {
 	public Long id;
 	
 	@Required
-	public String macAdress;
+	public String macAddress;
 	public int intensity;
 
 	/**
 	 * Constructor.
 	 */
-	public APFingerprint(String macAdress, int intensity) {
-		this.macAdress = macAdress;
+	public APFingerprint(String macAddress, int intensity) {
+		this.macAddress = macAddress;
 		this.intensity = intensity;
 	}
 }

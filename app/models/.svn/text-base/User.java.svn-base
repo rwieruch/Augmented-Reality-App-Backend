@@ -1,5 +1,6 @@
 package models;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -22,9 +24,6 @@ public class User extends Model {
 	
     @JsonIgnore
     public String password;
-    
-    // For later use: convert password and email with bas64 to a unique token with timestamp.
-    //public String token;
 	
 	// UserEntity
     public String name;

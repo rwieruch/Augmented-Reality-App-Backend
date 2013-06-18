@@ -12,8 +12,8 @@ object ApplicationBuild extends Build {
     javaCore,
     javaJdbc,
     "net.sf.flexjson" % "flexjson" % "2.1",
-    javaEbean, // Use this for heroku deployment
-    "postgresql" % "postgresql" % "8.4-702.jdbc4" // Use this for heroku deployment
+    javaEbean//, // Use this for heroku deployment
+    //"postgresql" % "postgresql" % "8.4-702.jdbc4" // Use this for heroku deployment
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(

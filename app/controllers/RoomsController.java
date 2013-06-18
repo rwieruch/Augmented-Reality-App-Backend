@@ -32,10 +32,10 @@ public class RoomsController extends Controller {
     	if(json == null) {
     		return badRequest("Expecting Json data");
     	} else {
-    		Integer x = json.findPath("x").getIntValue();
-    		Integer y = json.findPath("y").getIntValue();
-    		Integer width = json.findPath("width").getIntValue();
-    		Integer height = json.findPath("height").getIntValue();
+    		Double x = json.findPath("x").getDoubleValue();
+    		Double y = json.findPath("y").getDoubleValue();
+    		Double width = json.findPath("width").getDoubleValue();
+    		Double height = json.findPath("height").getDoubleValue();
     		String name = json.findPath("name").getTextValue();
     		if (x == null || y == null || width == null || height == null || name == null) {
     			return badRequest("Missing parameter!");

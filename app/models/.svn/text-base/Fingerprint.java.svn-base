@@ -1,6 +1,7 @@
 package models;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import models.AccessPoint;
 import models.APFingerprint;
@@ -25,8 +26,8 @@ public class Fingerprint extends Model {
 	public Long id;
 
 	@Required
-	public int x;
-	public int y;
+	public double x;
+	public double y;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	public List<APFingerprint> accesspoints;	
@@ -34,10 +35,9 @@ public class Fingerprint extends Model {
 	/**
 	 * Constructor.
 	 */
-	public Fingerprint(int x, int y, String macAdress, int intensity) {		
+	public Fingerprint(double x, double y) {		
 		this.x = x;
 		this.y = y;
-		accesspoints.add(new APFingerprint(macAdress,intensity));
 	}
 	
 	/**
@@ -72,10 +72,12 @@ public class Fingerprint extends Model {
 
 	/**
 	 * Update. @return updated Fingerprint
+	 * 
+	 * clear() doesn't work
 	 */
-	public static Fingerprint update(Fingerprint fp, int x, int y, String macAdress, int intensity) {
-		APFingerprint apf = new APFingerprint(macAdress,intensity);
-		fp.accesspoints.add(apf);
+	public static Fingerprint update(Fingerprint fp, double x, double y, List<APFingerprint> aps) {
+		fp.accesspoints.clear();
+		fp.accesspoints.addAll(aps);
 		fp.x = x;
 		fp.y = y;
 		fp.update();

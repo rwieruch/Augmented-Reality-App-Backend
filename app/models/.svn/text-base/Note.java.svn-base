@@ -1,11 +1,13 @@
 package models;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
@@ -18,28 +20,40 @@ public class Note extends Model {
 	  
 	@Required
 	public String text;
+
+	public String x;
+    public String y;
+    public String z; 
+
+    // Can be public, proteced, private
+    public String viewable;
+
+    public boolean editable;
 	
 	@ManyToOne
     public User user;
 	
-	public Note(String text, User user) {
+	public Note(String text, String x, String y, String z, String viewable, String editable, User user) {
 		this.user = user;
 		this.text = text;
+		this.x = x;
+        this.y = y;
+        this.z = z;
+        this.viewable = viewable;
+        if(editable.equals("true"))
+        	this.editable = true;
+        else
+        	this.editable = false;
 	}
 	
 	// Helper for database operations.
-	public static Finder<Long,Note> find = new Finder(
-			Long.class, Note.class
-			);
+	public static Finder<Long,Note> find = new Finder(Long.class, Note.class);
 	  
 	public static List<Note> all() {
 		return find.all();
 	}
 	  
 	public static void create(Note note) {
-		//User user = note.user;
-		//user.notes.add(note);
-		//user.save();
 		note.save();
 	}
 	  
@@ -47,8 +61,13 @@ public class Note extends Model {
 		find.ref(id).delete();
 	}
 
-	public static Note update(Note note, String text) {
+	public static Note update(Note note, String text, String viewable, String editable) {
 		note.text = text;
+		note.viewable = viewable;
+		if(editable.equals("true"))
+        	note.editable = true;
+        else
+        	note.editable = false;
 		note.update();
 		return note;
 	}

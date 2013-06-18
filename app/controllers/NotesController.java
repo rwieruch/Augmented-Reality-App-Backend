@@ -64,7 +64,7 @@ public class NotesController extends Controller {
                 String y = json.findPath("y").getTextValue();
                 String z = json.findPath("z").getTextValue();
 	    		if(text == null | viewable == null | editable == null | x == null | y == null | z == null) {
-	    			return badRequest("Missing parameter!");
+	    			return badRequest("Missing parameter - Text: " + text + " Viewable: "  + viewable + " Editable: " + editable + " X: " + x + " Y: " + y + " Z: " + z);
 	    		} else {
 	    			Note note = new Note(text, x, y, z, viewable, editable, authUser);
 	    			Note.create(note);
@@ -99,7 +99,7 @@ public class NotesController extends Controller {
                             "text",
                             "user.email",
                             "user.name").exclude("*");
-            System.out.println("GET3");
+           
             return ok(noteSerializer.serialize(note));
         }
     }
