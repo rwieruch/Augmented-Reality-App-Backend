@@ -1,7 +1,19 @@
 K 25
 svn:wc:ra_dav:version-url
 V 71
-/svn/kpeus13/!svn/ver/235/trunk/Implementierung/Backend/app/controllers
+/svn/kpeus13/!svn/ver/248/trunk/Implementierung/Backend/app/controllers
+END
+FingerprintController.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/kpeus13/!svn/ver/244/trunk/Implementierung/Backend/app/controllers/FingerprintController.java
+END
+NotesController.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/kpeus13/!svn/ver/248/trunk/Implementierung/Backend/app/controllers/NotesController.java
 END
 LocationsController.java
 K 25
@@ -38,16 +50,4 @@ K 25
 svn:wc:ra_dav:version-url
 V 92
 /svn/kpeus13/!svn/ver/235/trunk/Implementierung/Backend/app/controllers/RoomsController.java
-END
-FingerprintController.java
-K 25
-svn:wc:ra_dav:version-url
-V 98
-/svn/kpeus13/!svn/ver/235/trunk/Implementierung/Backend/app/controllers/FingerprintController.java
-END
-NotesController.java
-K 25
-svn:wc:ra_dav:version-url
-V 92
-/svn/kpeus13/!svn/ver/203/trunk/Implementierung/Backend/app/controllers/NotesController.java
 END

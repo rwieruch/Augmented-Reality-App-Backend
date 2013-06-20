@@ -35,9 +35,11 @@ public class NotesController extends Controller {
 		String token = request().getHeader("token");
 		Session session = Session.authenticate(token); 
         if(session == null) {
-        	return unauthorized("Unauthorized");
+        	return ok(new JSONSerializer().exclude("class", "user.class", "user.password").serialize(Note.allPublic()));
+        	//return unauthorized("Unauthorized");
         } else { 	
-        	return ok(new JSONSerializer().exclude("class", "user.class", "user.password").serialize(Note.all()));
+        	User authUser = Session.getAuthUser(token);
+        	return ok(new JSONSerializer().exclude("class", "user.class", "user.password").serialize(Note.all(authUser)));
         }
 	}
     

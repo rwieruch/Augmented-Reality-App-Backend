@@ -1,6 +1,7 @@
 package models;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -49,8 +50,22 @@ public class Note extends Model {
 	// Helper for database operations.
 	public static Finder<Long,Note> find = new Finder(Long.class, Note.class);
 	  
-	public static List<Note> all() {
-		return find.all();
+	public static List<Note> all(User authUser) {
+		//return find.all();
+		List<Note> publiclist = find.where().eq("viewable", "public").findList();
+		List<Note> protecedlist = find.where().eq("viewable", "protected").findList();
+		List<Note> myprivatelist = find.where().eq("viewable", "private").eq("user.email", authUser.email).findList();
+		
+		List<Note> finallist = new ArrayList<Note>();
+		finallist.addAll(publiclist);
+		finallist.addAll(protecedlist);
+		finallist.addAll(myprivatelist);
+		
+		return finallist;
+	}
+	
+	public static List<Note> allPublic() {
+		return find.where().eq("viewable", "public").findList();
 	}
 	  
 	public static void create(Note note) {

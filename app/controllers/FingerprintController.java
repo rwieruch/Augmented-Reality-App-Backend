@@ -1,3 +1,19 @@
+package controllers;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import models.Fingerprint;
+import models.APFingerprint;
+import models.Session;
+
+import play.libs.Json;
+import play.mvc.Controller;
+import play.mvc.Result;
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.node.ObjectNode;
+
 /**
  * FingerprintController.
  *
@@ -6,26 +22,12 @@
  *
  * @author: Jan Schmalfuß, Richard
  */
-package controllers;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Iterator;
-import models.Fingerprint;
-import models.APFingerprint;
-import play.libs.Json;
-import play.mvc.Controller;
-import play.mvc.Result;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.node.ObjectNode;
-
 public class FingerprintController extends Controller {
 	/**
-	 * Send all objects as JSON.
+	 * Send all objects as JSON. Get a list of all Fingerprints and convert them to JSON.
 	 */
 	public static Result indexJson() {
-		return ok(Json.toJson(Fingerprint.all())); // Get a list of all Fingerprints and convert them
-								// to JSON.
+		return ok(Json.toJson(Fingerprint.all()));
 	}
 
 	/**
@@ -36,10 +38,18 @@ public class FingerprintController extends Controller {
 		if (json == null) {
 			return badRequest("Expecting Json data");
 		} else {
+			
+    		// Authenticate.
+    		String token = request().getHeader("token");
+    		Session session = Session.authenticate(token);
+	        if(session == null) {
+	        	return unauthorized("Unauthorized");
+	        }
+	        
 			double xD = json.findPath("x").getDoubleValue(); // No getFloatValue, getNumberValue doesnt work either.
 			double yD = json.findPath("y").getDoubleValue();
-    		Float x = new Float(xD); // Use Java datatype for Nullcheck below.
-    		Float y = new Float(yD);
+	    	Float x = new Float(xD); // Use Java datatype for Nullcheck below.
+	    	Float y = new Float(yD);
 			Iterator<JsonNode> it = json.findPath("AccessPoints").getElements();
 			if (x == null || y == null || it == null) { //ToDo
 				return badRequest("Missing parameter!");
@@ -78,6 +88,14 @@ public class FingerprintController extends Controller {
 		if (json == null) {
 			return badRequest("Expecting Json data");
 		} else {
+			
+    		// Authenticate.
+    		String token = request().getHeader("token");
+    		Session session = Session.authenticate(token);
+	        if(session == null) {
+	        	return unauthorized("Unauthorized");
+	        }
+	        
 			double xD = json.findPath("x").getDoubleValue(); // No getFloatValue, getNumberValue doesnt work either.
 			double yD = json.findPath("y").getDoubleValue();
     		Float x = new Float(xD); // Use Java datatype for Nullcheck below.
@@ -104,11 +122,25 @@ public class FingerprintController extends Controller {
 	}
 
 	public static Result destroyJson(Long id) {
+		// Authenticate.
+		String token = request().getHeader("token");
+		Session session = Session.authenticate(token);
+		if(session == null) {
+			return unauthorized("Unauthorized");
+		}
+		
 		Fingerprint.delete(id);
 		return ok();
 	}
 
 	public static Result destroyAllJson() {
+		// Authenticate.
+		String token = request().getHeader("token");
+		Session session = Session.authenticate(token);
+		if(session == null) {
+			return unauthorized("Unauthorized");
+		}
+		
 		Fingerprint.deleteAll();
 		return ok();
 	}
