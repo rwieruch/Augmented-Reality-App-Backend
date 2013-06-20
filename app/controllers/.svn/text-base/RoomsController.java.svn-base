@@ -11,7 +11,7 @@ import org.codehaus.jackson.node.ObjectNode;
  * RoomsController.
  *
  * @desc
- * 	{"x": int, "y": int, "width": int, "height": int, "name": String}.
+ * 	{"x": float, "y": float, "width": float, "height": float, "name": String}.
  * 
  * @author: Richard Hähne
  */
@@ -32,10 +32,14 @@ public class RoomsController extends Controller {
     	if(json == null) {
     		return badRequest("Expecting Json data");
     	} else {
-    		Double x = json.findPath("x").getDoubleValue();
-    		Double y = json.findPath("y").getDoubleValue();
-    		Double width = json.findPath("width").getDoubleValue();
-    		Double height = json.findPath("height").getDoubleValue();
+    		double xD = json.findPath("x").getDoubleValue(); // No getFloatValue, getNumberValue doesnt work.
+    		double yD = json.findPath("y").getDoubleValue();
+    		double widthD = json.findPath("width").getDoubleValue();
+    		double heightD = json.findPath("height").getDoubleValue();
+    		Float x = new Float(xD); // Use Java datatype for Nullcheck below.
+    		Float y = new Float(yD);
+    		Float width = new Float(widthD);
+    		Float height = new Float(heightD);
     		String name = json.findPath("name").getTextValue();
     		if (x == null || y == null || width == null || height == null || name == null) {
     			return badRequest("Missing parameter!");
@@ -67,10 +71,14 @@ public class RoomsController extends Controller {
     	if(json == null) {
     		return badRequest("Expecting Json data");
     	} else {
-    		Integer x = json.findPath("x").getIntValue();
-    		Integer y = json.findPath("y").getIntValue();
-    		Integer width = json.findPath("width").getIntValue();
-    		Integer height = json.findPath("height").getIntValue();
+    		double xD = json.findPath("x").getDoubleValue(); // No getFloatValue, getNumberValue doesnt work either.
+    		double yD = json.findPath("y").getDoubleValue();
+    		double widthD = json.findPath("width").getDoubleValue();
+    		double heightD = json.findPath("height").getDoubleValue();
+    		Float x = new Float(xD); // Use Java datatype for Nullcheck below.
+    		Float y = new Float(yD);
+    		Float width = new Float(widthD);
+    		Float height = new Float(heightD);
     		String name = json.findPath("name").getTextValue();
     		if(x == null || y == null || width == null || height == null || name == null) {
     			return badRequest("Missing parameter!");
@@ -86,4 +94,9 @@ public class RoomsController extends Controller {
     	Room.delete(id);
     	return ok();
     }
+    
+	public static Result destroyAllJson() {
+		Room.deleteAll();
+		return ok();
+	}
 }

@@ -1,13 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 66
-/svn/kpeus13/!svn/ver/220/trunk/Implementierung/Backend/app/models
-END
-User.java
-K 25
-svn:wc:ra_dav:version-url
-V 76
-/svn/kpeus13/!svn/ver/203/trunk/Implementierung/Backend/app/models/User.java
+/svn/kpeus13/!svn/ver/235/trunk/Implementierung/Backend/app/models
 END
 Session.java
 K 25
@@ -25,7 +19,7 @@ Fingerprint.java
 K 25
 svn:wc:ra_dav:version-url
 V 83
-/svn/kpeus13/!svn/ver/220/trunk/Implementierung/Backend/app/models/Fingerprint.java
+/svn/kpeus13/!svn/ver/235/trunk/Implementierung/Backend/app/models/Fingerprint.java
 END
 Location.java
 K 25
@@ -49,5 +43,11 @@ Room.java
 K 25
 svn:wc:ra_dav:version-url
 V 76
-/svn/kpeus13/!svn/ver/213/trunk/Implementierung/Backend/app/models/Room.java
+/svn/kpeus13/!svn/ver/235/trunk/Implementierung/Backend/app/models/Room.java
+END
+User.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/kpeus13/!svn/ver/203/trunk/Implementierung/Backend/app/models/User.java
 END

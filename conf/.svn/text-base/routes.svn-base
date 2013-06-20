@@ -42,6 +42,7 @@ GET     /fingerprints/:id.json      controllers.FingerprintController.getJson(id
 PUT     /fingerprints/:id.json      controllers.FingerprintController.updateJson(id: Long)
 POST    /fingerprints.json          controllers.FingerprintController.createJson()
 DELETE  /fingerprints/:id.json      controllers.FingerprintController.destroyJson(id: Long)
+DELETE  /fingerprints.json          controllers.FingerprintController.destroyAllJson()
 
 #Rooms
 GET     /rooms.json          controllers.RoomsController.indexJson()
@@ -49,6 +50,7 @@ GET     /rooms/:id.json      controllers.RoomsController.getJson(id: Long)
 PUT     /rooms/:id.json      controllers.RoomsController.updateJson(id: Long)
 POST    /rooms.json          controllers.RoomsController.createJson()
 DELETE  /rooms/:id.json      controllers.RoomsController.destroyJson(id: Long)
+DELETE  /rooms.json          controllers.RoomsController.destroyAllJson()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

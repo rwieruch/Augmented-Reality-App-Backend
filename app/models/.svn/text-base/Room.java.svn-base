@@ -20,16 +20,16 @@ public class Room extends Model {
 	public Long id;
 	
 	@Required
-	public double x;
-	public double y;
-	public double width;
-	public double height;
+	public float x;
+	public float y;
+	public float width;
+	public float height;
 	public String name;
 
 	/**
 	 * Constructor.
 	 */
-	public Room(double x, double y, double width, double height, String name) {
+	public Room(float x, float y, float width, float height, String name) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -68,9 +68,19 @@ public class Room extends Model {
 	}
 
 	/**
+	 * Delete all objects.
+	 */
+	public static void deleteAll() {
+		List<Room> list = find.all();
+		for (Room item: list) {
+			Room.delete(item.id);
+		}
+	}
+	
+	/**
 	 * Update. @return updated Room
 	 */
-	public static Room update(Room room, double x, double y, double width, double height, String name) {
+	public static Room update(Room room, float x, float y, float width, float height, String name) {
 		room.x = x;
 		room.y = y;
 		room.width = width;

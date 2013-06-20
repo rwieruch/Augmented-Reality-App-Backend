@@ -20,8 +20,8 @@ create table access_point (
 
 create table fingerprint (
   id                        bigint not null,
-  x                         double,
-  y                         double,
+  x                         float,
+  y                         float,
   constraint pk_fingerprint primary key (id))
 ;
 
@@ -48,10 +48,10 @@ create table note (
 
 create table room (
   id                        bigint not null,
-  x                         double,
-  y                         double,
-  width                     double,
-  height                    double,
+  x                         float,
+  y                         float,
+  width                     float,
+  height                    float,
   name                      varchar(255),
   constraint pk_room primary key (id))
 ;

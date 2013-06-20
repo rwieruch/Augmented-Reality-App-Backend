@@ -2,9 +2,9 @@
  * FingerprintController.
  *
  *@desc
- * 	{"x": int, "y":int, "AccessPoints": [{"macAdress": "String", "intensity": int},{"macAdress": "String", "intensity": int},...] }
+ * 	{"x": float, "y": float, "AccessPoints": [{"macAdress": "String", "intensity": int},{"macAdress": "String", "intensity": int},...] }
  *
- * @author: Jan Schmalfuß
+ * @author: Jan Schmalfuß, Richard
  */
 package controllers;
 
@@ -36,8 +36,10 @@ public class FingerprintController extends Controller {
 		if (json == null) {
 			return badRequest("Expecting Json data");
 		} else {
-			Double x = json.findPath("x").getDoubleValue();
-			Double y = json.findPath("y").getDoubleValue();
+			double xD = json.findPath("x").getDoubleValue(); // No getFloatValue, getNumberValue doesnt work either.
+			double yD = json.findPath("y").getDoubleValue();
+    		Float x = new Float(xD); // Use Java datatype for Nullcheck below.
+    		Float y = new Float(yD);
 			Iterator<JsonNode> it = json.findPath("AccessPoints").getElements();
 			if (x == null || y == null || it == null) { //ToDo
 				return badRequest("Missing parameter!");
@@ -51,7 +53,7 @@ public class FingerprintController extends Controller {
 					}				
 				Fingerprint.create(fingerprint);
 				
-				return ok("Added " + fingerprint.id);
+				return ok(Json.toJson(fingerprint));
 			}
 		}
 	}
@@ -76,8 +78,10 @@ public class FingerprintController extends Controller {
 		if (json == null) {
 			return badRequest("Expecting Json data");
 		} else {
-			Double x = json.findPath("x").getDoubleValue();
-			Double y = json.findPath("y").getDoubleValue();
+			double xD = json.findPath("x").getDoubleValue(); // No getFloatValue, getNumberValue doesnt work either.
+			double yD = json.findPath("y").getDoubleValue();
+    		Float x = new Float(xD); // Use Java datatype for Nullcheck below.
+    		Float y = new Float(yD);
 			Iterator<JsonNode> it = json.findPath("AccessPoints").getElements();
 			
 			List<APFingerprint> aps = new ArrayList<APFingerprint>();
@@ -101,6 +105,11 @@ public class FingerprintController extends Controller {
 
 	public static Result destroyJson(Long id) {
 		Fingerprint.delete(id);
+		return ok();
+	}
+
+	public static Result destroyAllJson() {
+		Fingerprint.deleteAll();
 		return ok();
 	}
 }

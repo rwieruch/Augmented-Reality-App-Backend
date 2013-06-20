@@ -26,8 +26,8 @@ public class Fingerprint extends Model {
 	public Long id;
 
 	@Required
-	public double x;
-	public double y;
+	public float x;
+	public float y;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	public List<APFingerprint> accesspoints;	
@@ -35,7 +35,7 @@ public class Fingerprint extends Model {
 	/**
 	 * Constructor.
 	 */
-	public Fingerprint(double x, double y) {		
+	public Fingerprint(float x, float y) {		
 		this.x = x;
 		this.y = y;
 	}
@@ -71,11 +71,22 @@ public class Fingerprint extends Model {
 	}
 
 	/**
+	 * Delete all objects.
+	 */
+	public static void deleteAll() {
+		List<Fingerprint> list = find.all();
+		for (Fingerprint item: list) {
+			Fingerprint.delete(item.id);
+		}
+	}
+
+	
+	/**
 	 * Update. @return updated Fingerprint
 	 * 
 	 * clear() doesn't work
 	 */
-	public static Fingerprint update(Fingerprint fp, double x, double y, List<APFingerprint> aps) {
+	public static Fingerprint update(Fingerprint fp, float x, float y, List<APFingerprint> aps) {
 		fp.accesspoints.clear();
 		fp.accesspoints.addAll(aps);
 		fp.x = x;
