@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import org.apache.commons.codec.binary.Base64;
+import org.joda.time.DateTime;
 
 import play.db.ebean.Model;
 import play.db.ebean.Model.Finder;
@@ -53,7 +54,30 @@ public class Session extends Model {
 	}
 	
 	public static Session authenticate(String token) {
-		return find.where().eq("token", token).findUnique();
+		Session session = find.where().eq("token", token).findUnique();
+		
+		// If there is no session return 401.
+		if(session == null) {
+			return null;
+		}
+		
+		// Compare current datetime with session dateime + 30 minutes.
+		DateTime timestampTime = new DateTime(session.timestamp);
+		DateTime m30FromTT = timestampTime.plusMinutes(30);	
+		DateTime currentDate = new DateTime();
+		
+		int value = m30FromTT.compareTo(currentDate);		
+		if(value<0) {
+			// Timestamp out dated.
+			session.delete();		
+			return null;
+		} else {			
+			// Set timestamp of session to current time.
+			session.timestamp = currentDate.toDate();
+			session.update();
+			
+			return session;
+		}
 	}
 	
 	public static User getAuthUser(String token) {

@@ -68,10 +68,11 @@ public class NotesApiTest extends BaseModelTest {
 		
 		// Create first note.
 		
-		noteOne = new Note("note one", "5", "6", "7", "public", "true", null);	
+		noteOne = new Note("note one", "text", "5", "6", "7", "public", "true", null);	
 			
 		Map map1 = new HashMap();
 		map1.put("text", noteOne.text);
+		map1.put("title", noteOne.title);
 		map1.put("x", noteOne.x);
 		map1.put("y", noteOne.y);
 		map1.put("z", noteOne.z);
@@ -93,10 +94,11 @@ public class NotesApiTest extends BaseModelTest {
 		
 		// Create second note.
 		
-		noteTwo = new Note("note two", "5", "6", "7", "public", "true", null);	
+		noteTwo = new Note("note two", "text", "5", "6", "7", "public", "true", null);	
 			
 		Map map2 = new HashMap();
 		map2.put("text", noteTwo.text);
+		map2.put("title", noteTwo.title);
 		map2.put("x", noteTwo.x);
 		map2.put("y", noteTwo.y);
 		map2.put("z", noteTwo.z);
@@ -117,10 +119,11 @@ public class NotesApiTest extends BaseModelTest {
 		
 		// Create third note.
 		
-		noteThree = new Note("note three", "5", "6", "7", "public", "true", null);	
+		noteThree = new Note("note three", "text", "5", "6", "7", "public", "true", null);	
 			
 		Map map3 = new HashMap();
 		map3.put("text", noteThree.text);
+		map3.put("title", noteThree.title);
 		map3.put("x", noteThree.x);
 		map3.put("y", noteThree.y);
 		map3.put("z", noteThree.z);

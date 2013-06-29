@@ -28,22 +28,29 @@ create table fingerprint (
 create table location (
   id                        bigint not null,
   floor                     integer,
-  x                         integer,
-  y                         integer,
+  x                         float,
+  y                         float,
   name                      varchar(255),
   constraint pk_location primary key (id))
 ;
 
 create table note (
   id                        bigint not null,
+  title                     varchar(255),
   text                      varchar(255),
-  x                         varchar(255),
-  y                         varchar(255),
-  z                         varchar(255),
-  viewable                  varchar(255),
+  x                         float,
+  y                         float,
+  z                         float,
+  viewable                  integer,
   editable                  boolean,
   user_email                varchar(255),
   constraint pk_note primary key (id))
+;
+
+create table number (
+  id                        bigint not null,
+  value                     float,
+  constraint pk_number primary key (id))
 ;
 
 create table room (
@@ -72,9 +79,9 @@ create table augmenteduser (
   realname                  varchar(255),
   image                     varchar(255),
   info                      varchar(255),
-  x                         varchar(255),
-  y                         varchar(255),
-  z                         varchar(255),
+  x                         float,
+  y                         float,
+  z                         float,
   constraint pk_augmenteduser primary key (email))
 ;
 
@@ -87,6 +94,8 @@ create sequence fingerprint_seq;
 create sequence location_seq;
 
 create sequence note_seq;
+
+create sequence number_seq;
 
 create sequence room_seq;
 
@@ -117,6 +126,8 @@ drop table if exists location;
 
 drop table if exists note;
 
+drop table if exists number;
+
 drop table if exists room;
 
 drop table if exists session;
@@ -134,6 +145,8 @@ drop sequence if exists fingerprint_seq;
 drop sequence if exists location_seq;
 
 drop sequence if exists note_seq;
+
+drop sequence if exists number_seq;
 
 drop sequence if exists room_seq;
 

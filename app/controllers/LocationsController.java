@@ -34,8 +34,10 @@ public class LocationsController extends Controller {
     		return badRequest("Expecting Json data");
     	} else {
     		Integer floor = json.findPath("floor").getIntValue();
-    		Integer x = json.findPath("x").getIntValue();
-    		Integer y = json.findPath("y").getIntValue();
+	        Double xD = json.findPath("x").getDoubleValue(); // No getFloatValue, getNumberValue doesnt work either.
+	        Double yD = json.findPath("y").getDoubleValue();
+    		Float x = new Float(xD); // Use Java datatype for Nullcheck below.
+    		Float y = new Float(yD);
     		String name = json.findPath("name").getTextValue();
     		if(floor == null || x == null || y == null || name == null) {
     			return badRequest("Missing parameter!");
@@ -66,8 +68,10 @@ public class LocationsController extends Controller {
     		return badRequest("Expecting Json data");
     	} else {
     		Integer floor = json.findPath("floor").getIntValue();
-    		Integer x = json.findPath("x").getIntValue();
-    		Integer y = json.findPath("y").getIntValue();
+	        Double xD = json.findPath("x").getDoubleValue(); // No getFloatValue, getNumberValue doesnt work either.
+	        Double yD = json.findPath("y").getDoubleValue();
+    		Float x = new Float(xD); // Use Java datatype for Nullcheck below.
+    		Float y = new Float(yD);
     		String name = json.findPath("name").getTextValue();
     		if(floor == null || x == null || y == null || name == null) {
     			return badRequest("Missing parameter!");

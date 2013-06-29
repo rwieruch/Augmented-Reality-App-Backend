@@ -5,6 +5,7 @@ import org.codehaus.jackson.JsonNode;
 import flexjson.JSONSerializer;
 
 import models.Note;
+import models.ViewableType;
 import models.Session;
 import models.User;
 import play.*;
@@ -14,7 +15,7 @@ import play.mvc.*;
 
 import views.html.*;
 
-public class Application extends Controller {
+public class Application extends Controller implements ViewableType {
   
     public static Result index() {	
     	return ok("Everything works just fine!");
@@ -37,18 +38,18 @@ public class Application extends Controller {
 		String realname = "";
 		String image = "";
 		String info = "";
-		String x = "";
-		String y = "";
-		String z = "";		
+		float x = 10;
+		float y = 11;
+		float z = 12;		
 
 		User user = new User(email, name, password, type, realname, image, info, x, y, z);
 		User.create(user);
 				
 		// Create notes.
 		
-		Note note1 = new Note("Notiz Eins", "4", "5", "6", "private", "true", user);
-		Note note2 = new Note("Notiz Zwei", "2", "3", "6", "public", "true", user);
-		Note note3 = new Note("Notiz Drei", "1", "5", "7", "protected", "false", user);
+		Note note1 = new Note("Notiz Eins", "text", 4, 5, 6, PRIVATE, true, user);
+		Note note2 = new Note("Notiz Zwei", "text", 2, 3, 6, PUBLIC, true, user);
+		Note note3 = new Note("Notiz Drei", "text", 1, 5, 7, PROTECTED, false, user);
 		Note.create(note1);
 		Note.create(note2);
 		Note.create(note3);

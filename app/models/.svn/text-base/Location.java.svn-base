@@ -17,14 +17,14 @@ public class Location extends Model {
 	// CNWIFI Code: start
 	
 	public int floor;
-	public int x;
-	public int y;
+	public float x;
+	public float y;
 	public String name;
 
 	/**
 	 * Constructor.
 	 */
-	public Location(int floor, int x, int y, String name) {
+	public Location(int floor, float x, float y, String name) {
 		this.floor = floor;
 		this.x = x;
 		this.y = y;
@@ -48,7 +48,7 @@ public class Location extends Model {
 		find.ref(id).delete();
 	}
 	
-	public static Location update(Location location, int floor, int x, int y, String name) {
+	public static Location update(Location location, int floor, float x, float y, String name) {
 		location.floor = floor;
 		location.x = x;
 		location.y = y;

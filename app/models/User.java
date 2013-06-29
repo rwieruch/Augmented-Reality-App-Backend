@@ -35,14 +35,14 @@ public class User extends Model {
     // EntityData
     //public String entity_type;
     //public Map<String, String> properties;
-    public String x;
-    public String y;
-    public String z;    
+    public float x;
+    public float y;
+    public float z;
     
     @OneToMany(cascade = CascadeType.ALL)
     public List<Note> notes;
     
-    public User(String email, String name, String password, String type, String realname, String image, String info, String x, String y, String z) {
+    public User(String email, String name, String password, String type, String realname, String image, String info, float x, float y, float z) {
         this.email = email;
         this.name = name;
         this.password = password;

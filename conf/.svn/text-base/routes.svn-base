@@ -21,6 +21,7 @@ GET 	/notes/:id.json   		    controllers.NotesController.getJson(id: Long)
 PUT 	/notes/:id.json   		    controllers.NotesController.updateJson(id: Long) 
 POST    /notes.json                 controllers.NotesController.createJson()
 DELETE  /notes/:id.json   	    	controllers.NotesController.destroyJson(id: Long)
+DELETE  /notes.json          		controllers.NotesController.destroyAllJson()
 
 #Locations
 GET     /locations.json             controllers.LocationsController.indexJson()
@@ -51,6 +52,14 @@ PUT     /rooms/:id.json      controllers.RoomsController.updateJson(id: Long)
 POST    /rooms.json          controllers.RoomsController.createJson()
 DELETE  /rooms/:id.json      controllers.RoomsController.destroyJson(id: Long)
 DELETE  /rooms.json          controllers.RoomsController.destroyAllJson()
+
+#Numbers
+GET     /numbers.json          controllers.NumbersController.indexJson()
+GET     /numbers/:id.json      controllers.NumbersController.getJson(id: Long)
+PUT     /numbers/:id.json      controllers.NumbersController.updateJson(id: Long)
+POST    /numbers.json          controllers.NumbersController.createJson()
+DELETE  /numbers/:id.json      controllers.NumbersController.destroyJson(id: Long)
+DELETE  /numbers.json          controllers.NumbersController.destroyAllJson()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

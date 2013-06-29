@@ -12,39 +12,42 @@ import javax.persistence.Version;
 
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
-
+/**
+ * Entity for storing Notes.
+ * @author Robin
+ *
+ */
 @Entity
-public class Note extends Model {
+public class Note extends Model implements ViewableType {
 	
 	@Id
 	public Long id;
 	  
 	@Required
+	public String title;
 	public String text;
 
-	public String x;
-    public String y;
-    public String z; 
+	public float x;
+    public float y;
+    public float z; 
 
-    // Can be public, proteced, private
-    public String viewable;
+    // Can be public, proteced, private. @see ViewableType.
+    public int viewable;
 
     public boolean editable;
 	
 	@ManyToOne
     public User user;
 	
-	public Note(String text, String x, String y, String z, String viewable, String editable, User user) {
+	public Note(String title, String text, float x, float y, float z, int viewable, boolean editable, User user) {
 		this.user = user;
+		this.title = title;
 		this.text = text;
 		this.x = x;
         this.y = y;
         this.z = z;
         this.viewable = viewable;
-        if(editable.equals("true"))
-        	this.editable = true;
-        else
-        	this.editable = false;
+       	this.editable = editable;
 	}
 	
 	// Helper for database operations.
@@ -52,9 +55,9 @@ public class Note extends Model {
 	  
 	public static List<Note> all(User authUser) {
 		//return find.all();
-		List<Note> publiclist = find.where().eq("viewable", "public").findList();
-		List<Note> protecedlist = find.where().eq("viewable", "protected").findList();
-		List<Note> myprivatelist = find.where().eq("viewable", "private").eq("user.email", authUser.email).findList();
+		List<Note> publiclist = find.where().eq("viewable", PUBLIC).findList();
+		List<Note> protecedlist = find.where().eq("viewable", PROTECTED).findList();
+		List<Note> myprivatelist = find.where().eq("viewable", PRIVATE).eq("user.email", authUser.email).findList();
 		
 		List<Note> finallist = new ArrayList<Note>();
 		finallist.addAll(publiclist);
@@ -65,7 +68,7 @@ public class Note extends Model {
 	}
 	
 	public static List<Note> allPublic() {
-		return find.where().eq("viewable", "public").findList();
+		return find.where().eq("viewable", PUBLIC).findList();
 	}
 	  
 	public static void create(Note note) {
@@ -75,14 +78,19 @@ public class Note extends Model {
 	public static void delete(Long id) {
 		find.ref(id).delete();
 	}
+	
+	public static void deleteAll(User authUser) {
+		List<Note> list = all(authUser);
+		for (Note item: list) {
+			Note.delete(item.id);
+		}
+	}
 
-	public static Note update(Note note, String text, String viewable, String editable) {
+	public static Note update(Note note, String title, String text, int viewable, boolean editable) {
+		note.title = title;
 		note.text = text;
 		note.viewable = viewable;
-		if(editable.equals("true"))
-        	note.editable = true;
-        else
-        	note.editable = false;
+		note.editable = editable;
 		note.update();
 		return note;
 	}

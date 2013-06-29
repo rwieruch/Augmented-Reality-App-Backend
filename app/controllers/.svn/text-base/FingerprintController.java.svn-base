@@ -46,20 +46,22 @@ public class FingerprintController extends Controller {
 	        	return unauthorized("Unauthorized");
 	        }
 	        
-			double xD = json.findPath("x").getDoubleValue(); // No getFloatValue, getNumberValue doesnt work either.
-			double yD = json.findPath("y").getDoubleValue();
+	        Double xD = json.findPath("x").getDoubleValue(); // No getFloatValue, getNumberValue doesnt work either.
+	        Double yD = json.findPath("y").getDoubleValue();
 	    	Float x = new Float(xD); // Use Java datatype for Nullcheck below.
 	    	Float y = new Float(yD);
 			Iterator<JsonNode> it = json.findPath("AccessPoints").getElements();
-			if (x == null || y == null || it == null) { //ToDo
-				return badRequest("Missing parameter!");
+			if (x == null || y == null || it == null) {
+				return badRequest("Missing parameter! x: " + x + " y: " + y + " Wifi: " + it);
 			} else {
 				Fingerprint fingerprint = new Fingerprint(x, y);
 					while(it.hasNext()) {
 						JsonNode j = it.next();
-						String macAdress = j.findPath("macAddress").getTextValue();
-						int intensity = j.findPath("intensity").getIntValue();
-						fingerprint.accesspoints.add(new APFingerprint(macAdress,intensity));
+						String macAddress = j.findPath("macAddress").getTextValue();
+						Integer intensity = j.findPath("intensity").getIntValue();
+						if (macAddress == null || intensity == null)
+							return badRequest("Missing parameter! MacAddress: " + macAddress + " Intensity: " + intensity);
+						fingerprint.accesspoints.add(new APFingerprint(macAddress,intensity));
 					}				
 				Fingerprint.create(fingerprint);
 				
@@ -96,8 +98,8 @@ public class FingerprintController extends Controller {
 	        	return unauthorized("Unauthorized");
 	        }
 	        
-			double xD = json.findPath("x").getDoubleValue(); // No getFloatValue, getNumberValue doesnt work either.
-			double yD = json.findPath("y").getDoubleValue();
+	        Double xD = json.findPath("x").getDoubleValue(); // No getFloatValue, getNumberValue doesnt work either.
+	        Double yD = json.findPath("y").getDoubleValue();
     		Float x = new Float(xD); // Use Java datatype for Nullcheck below.
     		Float y = new Float(yD);
 			Iterator<JsonNode> it = json.findPath("AccessPoints").getElements();

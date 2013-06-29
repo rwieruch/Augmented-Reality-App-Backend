@@ -14,6 +14,10 @@ import play.mvc.Result;
 
 /**
  * Controller for authentication and CRUD operations.
+ * 
+ * @desc
+ * 	{"email":"t@t.t", "name":"test", "password": "test"}
+ * 
  * @author Robin Wieruch
  *
  */
@@ -38,9 +42,12 @@ public class UserController extends Controller {
     		String realname = json.findPath("realname").getTextValue();
     		String image = json.findPath("image").getTextValue();
     		String info = json.findPath("info").getTextValue();
-    		String x = json.findPath("x").getTextValue();
-    		String y = json.findPath("y").getTextValue();
-    		String z = json.findPath("z").getTextValue();
+    		Double xD = json.findPath("x").getDoubleValue(); // No getFloatValue, getNumberValue doesnt work either.
+    		Double yD = json.findPath("y").getDoubleValue();
+    		Double zD = json.findPath("z").getDoubleValue();
+    		Float x = new Float(xD); // Use Java datatype for Nullcheck below.
+    		Float y = new Float(yD);
+    		Float z = new Float(zD);
     		
     		// Check for required values.
     		if(email == null || name == null || password == null) {
@@ -98,9 +105,12 @@ public class UserController extends Controller {
         		String realname = json.findPath("realname").getTextValue();
         		String image = json.findPath("image").getTextValue();
         		String info = json.findPath("info").getTextValue();
-        		String x = json.findPath("x").getTextValue();
-        		String y = json.findPath("y").getTextValue();
-        		String z = json.findPath("z").getTextValue();
+                Double xD = json.findPath("x").getDoubleValue(); // No getFloatValue, getNumberValue doesnt work either.
+                Double yD = json.findPath("y").getDoubleValue();
+                Double zD = json.findPath("z").getDoubleValue();
+        		Float x = new Float(xD); // Use Java datatype for Nullcheck below.
+        		Float y = new Float(yD);
+        		Float z = new Float(zD);
 
                 User user = new User(authUser.email, name, authUser.password, type, realname, image, info, x, y, z);
                 User updatedUser = User.update(authUser.email, user);

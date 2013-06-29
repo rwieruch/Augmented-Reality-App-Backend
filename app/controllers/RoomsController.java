@@ -32,10 +32,10 @@ public class RoomsController extends Controller {
     	if(json == null) {
     		return badRequest("Expecting Json data");
     	} else {
-    		double xD = json.findPath("x").getDoubleValue(); // No getFloatValue, getNumberValue doesnt work.
-    		double yD = json.findPath("y").getDoubleValue();
-    		double widthD = json.findPath("width").getDoubleValue();
-    		double heightD = json.findPath("height").getDoubleValue();
+    		Double xD = json.findPath("x").getDoubleValue(); // No getFloatValue, getNumberValue doesnt work.
+    		Double yD = json.findPath("y").getDoubleValue();
+    		Double widthD = json.findPath("width").getDoubleValue();
+    		Double heightD = json.findPath("height").getDoubleValue();
     		Float x = new Float(xD); // Use Java datatype for Nullcheck below.
     		Float y = new Float(yD);
     		Float width = new Float(widthD);
@@ -71,16 +71,16 @@ public class RoomsController extends Controller {
     	if(json == null) {
     		return badRequest("Expecting Json data");
     	} else {
-    		double xD = json.findPath("x").getDoubleValue(); // No getFloatValue, getNumberValue doesnt work either.
-    		double yD = json.findPath("y").getDoubleValue();
-    		double widthD = json.findPath("width").getDoubleValue();
-    		double heightD = json.findPath("height").getDoubleValue();
+    		Double xD = json.findPath("x").getDoubleValue(); // No getFloatValue, getNumberValue doesnt work either.
+    		Double yD = json.findPath("y").getDoubleValue();
+    		Double widthD = json.findPath("width").getDoubleValue();
+    		Double heightD = json.findPath("height").getDoubleValue();
     		Float x = new Float(xD); // Use Java datatype for Nullcheck below.
     		Float y = new Float(yD);
     		Float width = new Float(widthD);
     		Float height = new Float(heightD);
     		String name = json.findPath("name").getTextValue();
-    		if(x == null || y == null || width == null || height == null || name == null) {
+    		if (x == null || y == null || width == null || height == null || name == null) {
     			return badRequest("Missing parameter!");
     		} else {
     			Room room = Room.get(id);

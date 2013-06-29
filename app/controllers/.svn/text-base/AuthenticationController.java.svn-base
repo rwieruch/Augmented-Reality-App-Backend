@@ -14,8 +14,12 @@ import play.mvc.Result;
 
 /**
  * Controller for authentication and CRUD operations.
+ * 
+ * @desc
+ * 	{"email":"t@t.t", "password": "test"}
+ * 
  * @author Robin Wieruch
- *
+ * 
  */
 public class AuthenticationController extends Controller {
     
