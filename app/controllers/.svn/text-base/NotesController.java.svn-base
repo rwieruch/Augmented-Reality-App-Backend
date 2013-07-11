@@ -135,15 +135,21 @@ public class NotesController extends Controller {
                     return badRequest("Missing parameter!");
                 } else {
                     Note note = Note.get(id);
-                    Note updatedNote = Note.update(note, title, text, viewable, editable);
                     
-                    JSONSerializer noteSerializer = new JSONSerializer().include(
-                            "id",
-							"title",
-                            "text",
-                            "user.email",
-                            "user.name").exclude("*");
-                    return ok(noteSerializer.serialize(updatedNote));
+                    if(!note.editable) {
+                		return badRequest("Not authorized to edit note.");
+                	}
+                	else {                
+	                    Note updatedNote = Note.update(note, title, text, viewable, editable);
+	                    
+	                    JSONSerializer noteSerializer = new JSONSerializer().include(
+	                            "id",
+	                            "title",
+	                            "text",
+	                            "user.email",
+	                            "user.name").exclude("*");
+	                    return ok(noteSerializer.serialize(updatedNote));
+                	}
                 }
             }
         }
@@ -159,9 +165,14 @@ public class NotesController extends Controller {
         if(session == null) {
         	return unauthorized("Unauthorized");
         } else { 
-        	//Note note = Note.get(id);
-        	Note.delete(id);
-        	return ok();
+        	Note note = Note.get(id);       	
+        	if(!note.editable) {
+        		return badRequest("Not authorized to delete note.");
+        	}
+        	else {
+        		Note.delete(id);
+            	return ok();
+        	}
     	}
     }
     

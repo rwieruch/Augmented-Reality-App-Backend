@@ -3,6 +3,7 @@ package api;
 import static org.fest.assertions.Assertions.assertThat;
 import static play.test.Helpers.GET;
 import static play.test.Helpers.contentAsString;
+import static play.test.Helpers.charset;
 import static play.test.Helpers.fakeRequest;
 import static play.test.Helpers.routeAndCall;
 import static play.test.Helpers.status;
@@ -68,7 +69,7 @@ public class NotesApiTest extends BaseModelTest {
 		
 		// Create first note.
 		
-		noteOne = new Note("note one", "text", "5", "6", "7", "public", "true", null);	
+		noteOne = new Note("note one", "text1", 5.99f, 3.99f, 7.99f, 0, true, null);	
 			
 		Map map1 = new HashMap();
 		map1.put("text", noteOne.text);
@@ -77,7 +78,7 @@ public class NotesApiTest extends BaseModelTest {
 		map1.put("y", noteOne.y);
 		map1.put("z", noteOne.z);
 		map1.put("viewable", noteOne.viewable);
-		map1.put("editable","true");
+		map1.put("editable",true);
 		JsonNode node1 = Json.toJson(map1);
 		System.out.println(node1);
 		Result result1 = routeAndCall(fakeRequest("POST","/notes.json")
@@ -94,7 +95,7 @@ public class NotesApiTest extends BaseModelTest {
 		
 		// Create second note.
 		
-		noteTwo = new Note("note two", "text", "5", "6", "7", "public", "true", null);	
+		noteTwo = new Note("note two", "textö", 4.99f, 6.99f, 2.99f, 0, true, null);	
 			
 		Map map2 = new HashMap();
 		map2.put("text", noteTwo.text);
@@ -103,7 +104,7 @@ public class NotesApiTest extends BaseModelTest {
 		map2.put("y", noteTwo.y);
 		map2.put("z", noteTwo.z);
 		map2.put("viewable", noteTwo.viewable);
-		map2.put("editable", "true");
+		map2.put("editable", true);
 		JsonNode node2 = Json.toJson(map2);
 		Result result2 = routeAndCall(fakeRequest("POST","/notes.json")
 				  .withJsonBody(node2)
@@ -119,7 +120,7 @@ public class NotesApiTest extends BaseModelTest {
 		
 		// Create third note.
 		
-		noteThree = new Note("note three", "text", "5", "6", "7", "public", "true", null);	
+		noteThree= new Note("note three", "textä", 1.99f, 3.99f, 8.99f, 0, true, null);	
 			
 		Map map3 = new HashMap();
 		map3.put("text", noteThree.text);
@@ -128,7 +129,7 @@ public class NotesApiTest extends BaseModelTest {
 		map3.put("y", noteThree.y);
 		map3.put("z", noteThree.z);
 		map3.put("viewable", noteThree.viewable);
-		map3.put("editable", "true");
+		map3.put("editable", true);
 		JsonNode node3 = Json.toJson(map3);
 		Result result3 = routeAndCall(fakeRequest("POST","/notes.json")
 				  .withJsonBody(node3)
@@ -155,12 +156,6 @@ public class NotesApiTest extends BaseModelTest {
 	 }
 		
 	// Erroneous tests (400, 401, ...)
-	
-	@Test
-	public void unAuthIndexJson() {
-	  Result result = routeAndCall(fakeRequest(GET, "/notes.json"));
-	  assertThat(status(result)).isEqualTo(401);
-	}
 	
 	@Test
 	public void createJsonWithoutJson() {
@@ -207,6 +202,7 @@ public class NotesApiTest extends BaseModelTest {
 	// Successful tests (200, 203, ...)
 	
 	// Check whether it is possible to get a note.
+	
 	@Test
 	public void authGetJson() {
       Result result = routeAndCall(fakeRequest("GET","/notes/1.json")
@@ -219,7 +215,7 @@ public class NotesApiTest extends BaseModelTest {
 	  assertThat(contentAsString(result)).contains("1").contains(noteOne.text);//.contains(email).contains(name); // values for note 1
 	  containsPW(result); // in BaseModelTest, check for notContains: password:value
 	}
-
+	
 	@Test
 	public void authIndexUpdateDeleteIndexJson() {  
 		
@@ -233,6 +229,7 @@ public class NotesApiTest extends BaseModelTest {
 	  System.out.println("###NotesApiTest IndexResult: " + contentAsString(result1));
 	  assertThat(contentAsString(result1)).contains("id").contains("text");//.contains("user").contains("email").contains("name"); // keys
 	  assertThat(contentAsString(result1)).contains("1").contains(noteOne.text);//.contains(email).contains(name); // values for note 1
+	  assertThat(charset(result1)).isEqualTo("utf-8");
 	  assertThat(contentAsString(result1)).contains("2").contains(noteTwo.text);//.contains(email).contains(name); // values for note 2
 	  assertThat(contentAsString(result1)).contains("3").contains(noteThree.text);//.contains(email).contains(name); // values for note 2
 	  containsPW(result1); // in BaseModelTest, check for notContains: password:value
@@ -274,7 +271,7 @@ public class NotesApiTest extends BaseModelTest {
 	  assertThat(contentAsString(result4)).contains("id").contains("text");//.contains("user").contains("email").contains("name"); // keys
 	  assertThat(contentAsString(result4)).contains("1").contains(noteOne.text);//.contains(email).contains(name); // values for note 1
 	  assertThat(contentAsString(result4)).contains("2").contains(noteTwo.text);//.contains(email).contains(name); // values for note 2
-	  assertThat(contentAsString(result4)).doesNotContain("3").doesNotContain(noteThree.text);//.contains(email).contains(name); // values for note 3
+	  assertThat(contentAsString(result4)).doesNotContain(noteThree.text);//.contains(email).contains(name); // values for note 3
 	  containsPW(result4); // in BaseModelTest, check for notContains: password:value
 	}		  
 }

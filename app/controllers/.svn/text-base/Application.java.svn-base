@@ -47,9 +47,9 @@ public class Application extends Controller implements ViewableType {
 				
 		// Create notes.
 		
-		Note note1 = new Note("Notiz Eins", "text", 4, 5, 6, PRIVATE, true, user);
-		Note note2 = new Note("Notiz Zwei", "text", 2, 3, 6, PUBLIC, true, user);
-		Note note3 = new Note("Notiz Drei", "text", 1, 5, 7, PROTECTED, false, user);
+		Note note1 = new Note("Notiz Einsä", "text", 4, 5, 6, PRIVATE, true, user);
+		Note note2 = new Note("Notiz Zweiö", "text", 2, 3, 6, PUBLIC, true, user);
+		Note note3 = new Note("Notiz Dreiü", "text", 1, 5, 7, PROTECTED, false, user);
 		Note.create(note1);
 		Note.create(note2);
 		Note.create(note3);

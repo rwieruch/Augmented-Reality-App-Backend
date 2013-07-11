@@ -10,7 +10,7 @@ public class UserTest extends BaseModelTest {
 
 	@Test
     public void postAndGetUser() {
-        new User("alice@gmx.de", "Alice", "geheimnis", null, null, null, null, null, null, null).save();
+        new User("alice@gmx.de", "Alice", "geheimnis", null, null, null, null, 0.00f, 0.00f, 0.00f).save();
         User user = User.find.where().eq("email", "alice@gmx.de").findUnique();
         assertNotNull(user);
         assertEquals("Alice", user.name);
@@ -18,7 +18,7 @@ public class UserTest extends BaseModelTest {
 	
 	@Test
     public void authenticateUser() {
-        new User("wuppi@gmx.de", "Wuppi", "geheimnis", null, null, null, null, null, null, null).save();
+        new User("wuppi@gmx.de", "Wuppi", "geheimnis", null, null, null, null, 0.00f, 0.00f, 0.00f).save();
         
         assertNotNull(User.authenticate("wuppi@gmx.de", "geheimnis"));
         assertNull(User.authenticate("wuppi@gmx.de", "badpassword"));
